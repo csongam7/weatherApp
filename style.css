@@ -1,0 +1,38 @@
+body{
+    overflow: hidden;
+    margin: 0;
+}
+
+#mainContainer{
+    height: 100vh;
+    width: 100vw;
+    background-color: blue;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-rows: 1fr 3fr 1fr;
+    margin: 0;
+}
+
+#header{
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    background-color: aqua;
+    grid-column: 1/4;
+    grid-row: 1/2;
+    text-align: center;
+    align-content: center;
+}
+
+#searchedLocation{
+    display: block;
+    grid-column: 2/3;
+}
+
+#currentDate{
+    display: block;
+    align-self: center;
+}
+
+#catsAndDogsInnit{
+    grid-column: 1/2;
+}
