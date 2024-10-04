@@ -1,4 +1,4 @@
-import { display } from "./display.js";
+import { display } from './display.js';
 
 async function getWeatherData(location){
     try{
@@ -21,6 +21,33 @@ function getInputData(){
     return inputValue;
 }
 
+export function returnIconForFocusedWeather(weather, time, sunset){
+    switch(weather){
+        case 'rain' :
+            if(time > sunset){
+                return 'assets/rainNight.png';
+            }
+            return 'assets/rainy.png';
+        
+        case 'snow' :
+            return 'assets/snow.png';
+        case 'cloudy':
+        case 'partly-cloudy-day':
+            return 'assets/cloudy.png';
+        case 'partly-cloudy-night':
+            return 'assets/cloudyNight.png';
+        case 'clear-day':
+            return 'assets/sunny.png';
+        case 'clear-night':
+            return 'assets/waxing-moon.png';
+        case 'wind' :
+            return 'assets/wind.png';
+        case 'fog':
+            return 'assets/fog.png';
+        }
+
+}
+
 function fahrenheitToCelsius(temperatureInFahrenheit){
     temperatureInCelsius = (temperatureInFahrenheit-30) / 1.8;
     return temperatureInCelsius;
@@ -31,8 +58,12 @@ function celsiusToFahrenheit(temperatureInCelsius){
     return temperatureInFahrenheit;
 }
 
+function clearDisplay(){
+    const containers = document.querySelectorAll('.container');
+    containers.forEach((container) => container.remove());
+}
+
 const form = document.querySelector('#form');
 form.addEventListener('submit', function(event){
-    event.preventDefault(), getWeatherData(getInputData());
+    event.preventDefault(), clearDisplay(), getWeatherData(getInputData());
 });
-

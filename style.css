@@ -13,15 +13,21 @@ html, body{
     grid-template-rows: auto 1fr auto;
     margin: 0;
 }
-
+/* HEADER */
 #header{
-    
     display: contents;
     grid-template-columns: 1fr 3fr 1fr;
     background-color: aqua;
     grid-column: 1/-1;
     text-align: center;
     align-content: center;
+}
+
+#catsAndDogsInnit{
+    align-self: center;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    grid-column: 1/2;
 }
 
 #searchedLocation{
@@ -37,14 +43,7 @@ html, body{
     display: block;
     align-self: center;
 }
-
-#catsAndDogsInnit{
-    align-self: center;
-    padding-top: 5%;
-    padding-bottom: 5%;
-    grid-column: 1/2;
-}
-
+/*FOCUSED DAYS CONTAINER*/
 #middleContainer{
     height: 100%;
     display: grid;
@@ -53,11 +52,22 @@ html, body{
     background-color: green;
 }
 
-#currentDataContainer{
+#focusedWeatherContainer{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-content: center;
+    justify-items: center;
+    text-align: center;
     border: 3px solid black;
     background-color: wheat;
-    height: 50%;
+    height: 100%;
     grid-column: 2;
+}
+
+#focusedWeatherDataContainer{
+    display: grid;
+    text-align: center;
+    align-items: center;
 }
 
 #mainContainerFooter {
@@ -67,7 +77,6 @@ html, body{
     border: solid black 1px;
 }
 
-#nextHoursWeathersDisplayContainer{
-    display:flex;
-    flex-direction: column;
+#mainContainerFooter{
+
 }

@@ -1,3 +1,5 @@
+import { returnIconForFocusedWeather } from "./logic.js";
+
 export function display(weatherData){
     
     console.log(weatherData);
@@ -39,38 +41,40 @@ searchedLocation.innerHTML = weatherData.resolvedAddress;
     previousDayButton.className = 'dayChangeButton';
     middleContainer.appendChild(previousDayButton);
     previousDayButton.innerHTML = '<';
-    //current data container
-    const currentDataContainer = document.createElement('div');
-    currentDataContainer.id = 'currentDataContainer';
-    currentDataContainer.className = 'container';
-    middleContainer.appendChild(currentDataContainer);
-    //current midTemperature
-    const currentmidTemperature = document.createElement('span');
-    currentmidTemperature.id = 'currentmidTemperature';
-    currentmidTemperature.className = 'midTemperature';
-    currentmidTemperature.innerHTML = weatherData.currentConditions.temp;
-    currentDataContainer.appendChild(currentmidTemperature);
-    //current weather icon
-    const currentWeatherIcon = document.createElement('span');
-    currentWeatherIcon.id = 'currentWeatherIcon';
-    currentWeatherIcon.className = 'icon';
-    currentDataContainer.appendChild(currentWeatherIcon);
-
-    const currentWindPowerContainer = document.createElement('div');
-    currentWindPowerContainer.id = 'currentWindPowerContainer';
-    currentWindPowerContainer.class = 'container';
-    currentDataContainer.appendChild(currentWindPowerContainer);
-
-    const currentWindPower = document.createElement('span');
-    currentWindPower.id = 'currentWindPower';
-    currentWindPower.class = 'currentWindPower';
-    currentWindPower.innerHTML = weatherData.currentConditions.windspeed;
-    currentWindPowerContainer.appendChild(currentWindPower);
-
+    //focused weather container
+    const focusedWeatherContainer = document.createElement('div');
+    focusedWeatherContainer.id = 'focusedWeatherContainer';
+    focusedWeatherContainer.className = 'container';
+    middleContainer.appendChild(focusedWeatherContainer);
+    //focused weather data container
+    const focusedWeatherDataContainer = document.createElement('div')
+    focusedWeatherDataContainer.id = 'focusedWeatherDataContainer';
+    focusedWeatherDataContainer.class = 'container';
+    focusedWeatherContainer.appendChild(focusedWeatherDataContainer);
+    //focused midTemperature
+    const focusedmidTemperature = document.createElement('span');
+    focusedmidTemperature.id = 'focusedmidTemperature';
+    focusedmidTemperature.className = 'focusedWeatherData';
+    focusedmidTemperature.innerHTML = weatherData.currentConditions.temp;
+    focusedWeatherDataContainer.appendChild(focusedmidTemperature);
+    //focused weather icon
+    const focusedWeatherIcon = document.createElement('img');
+    focusedWeatherIcon.id = 'focusedWeatherIcon';
+    focusedWeatherIcon.className = 'icon';
+    focusedWeatherIcon.src = returnIconForFocusedWeather(weatherData.currentConditions.icon, parseInt(weatherData.currentConditions.datetime), parseInt(weatherData.currentConditions.sunset))
+    focusedWeatherContainer.appendChild(focusedWeatherIcon);
+    //focused wind
+    const focusedWindPower = document.createElement('span');
+    focusedWindPower.id = 'focusedWindPower';
+    focusedWindPower.class = 'focusedWeatherData';
+    focusedWindPower.innerHTML = weatherData.currentConditions.windspeed;
+    focusedWeatherDataContainer.appendChild(focusedWindPower);
+    //focused feels like temp
     const feelsLike = document.createElement('span');
     feelsLike.id = 'feelsLike';
+    feelsLike.className = 'focusedWeatherData'
     feelsLike.innerHTML = weatherData.currentConditions.feelslike;
-    currentDataContainer.appendChild(feelsLike);
+    focusedWeatherDataContainer.appendChild(feelsLike);
 //maybe I'll add more things here later///
     //next day button
     const nextDayButton = document.createElement('button');
@@ -117,6 +121,7 @@ searchedLocation.innerHTML = weatherData.resolvedAddress;
             nextHourTemperature.innerHTML = weatherData.days[dayIndex].hours[time].temp;
             nextHourContainer.appendChild(nextHourTemperature);
 
+
             //nextHourIcon.src = ...
             time++;
         }
@@ -128,14 +133,14 @@ searchedLocation.innerHTML = weatherData.resolvedAddress;
             nextDaysWeatherSlider.id = 'nextDaysWeatherSlider';
 
             const nextDaysWeathers = document.createElement('div');
-            nextDaysWeathers.id = `${i}ddaysWeather`;
+            nextDaysWeathers.id = `${i}daysWeather`;
             nextDaysWeathers.className = 'nextDaysWeather';
-            
+            //next day's mid temperature
             const midTemperature = document.createElement('span');
             midTemperature.id = `${i}dayMidTemperature`;
             midTemperature.innerHTML = weatherData.days[i].temp;
             nextDaysWeathers.appendChild(midTemperature);
-            
+            //icon
             const icon = document.createElement('span');
             icon.id = `${i}daysIcon`;
             icon.alt = `${weatherData.days[i].icon}.png`
