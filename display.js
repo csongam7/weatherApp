@@ -1,6 +1,6 @@
 import { returnIconForFocusedWeather } from "./logic.js";
 
-export function display(weatherData){
+export function display(weatherData, dayId){
     
     console.log(weatherData);
 
@@ -16,12 +16,6 @@ export function display(weatherData){
     catsAndDogsInnit.id = 'catsAndDogsInnit';
     header.appendChild(catsAndDogsInnit);
     catsAndDogsInnit.innerHTML = 'catsadsada'
-    //searched location
-    const searchedLocation = document.createElement('span');
-    searchedLocation.id = 'searchedLocation';
-    searchedLocation.className = 'searchedLocation';
-searchedLocation.innerHTML = weatherData.resolvedAddress;
-    header.appendChild(searchedLocation)
     //current date
     const currentDate = document.createElement('div');
     currentDate.id = 'currentDate';
@@ -51,11 +45,17 @@ searchedLocation.innerHTML = weatherData.resolvedAddress;
     focusedWeatherDataContainer.id = 'focusedWeatherDataContainer';
     focusedWeatherDataContainer.class = 'container';
     focusedWeatherContainer.appendChild(focusedWeatherDataContainer);
+    //focused max temperature
+    /*const focusedMaxTemp = document.createElement('div');
+    focusedMaxTemp.id = 'focusedMaxTemp';
+    focusedMaxTemp.innerHTML = weatherData.currentConditions
+    const maxTempIcon = document.createElement('img');
+    maxTempIcon.id = 'focusedMaxTempIcon';*/
     //focused midTemperature
     const focusedmidTemperature = document.createElement('span');
     focusedmidTemperature.id = 'focusedmidTemperature';
     focusedmidTemperature.className = 'focusedWeatherData';
-    focusedmidTemperature.innerHTML = weatherData.currentConditions.temp;
+    focusedmidTemperature.innerHTML = `Temperature: ${weatherData.currentConditions.temp}`;
     focusedWeatherDataContainer.appendChild(focusedmidTemperature);
     //focused weather icon
     const focusedWeatherIcon = document.createElement('img');
@@ -63,18 +63,72 @@ searchedLocation.innerHTML = weatherData.resolvedAddress;
     focusedWeatherIcon.className = 'icon';
     focusedWeatherIcon.src = returnIconForFocusedWeather(weatherData.currentConditions.icon, parseInt(weatherData.currentConditions.datetime), parseInt(weatherData.currentConditions.sunset))
     focusedWeatherContainer.appendChild(focusedWeatherIcon);
+    //focused weather min, max current temperature
+    const focusedTemperatureContainer = document.createElement('div');
+    focusedTemperatureContainer.id = 'focusedTemperatureContainer';
+    focusedTemperatureContainer.className = 'container';
+    const focusedMinTemperature = document.createElement('span');
+    focusedMinTemperature.innerHTML = Math.round(weatherData.days[dayId].tempmin);
+    focusedMinTemperature.id = 'focusedMinTemperature';
+    focusedMinTemperature.className = 'focusedSmallTemp';
+    focusedTemperatureContainer.appendChild(focusedMinTemperature);
+    if(dayId == 0){
+        const focusedCurrentTemperature = document.createElement('span');
+        focusedCurrentTemperature.innerHTML = Math.round(weatherData.currentConditions.temp);
+        focusedCurrentTemperature.id = 'focusedCurrentTemperature';
+        focusedCurrentTemperature.className = 'focusedBigTemp';
+        focusedTemperatureContainer.appendChild(focusedCurrentTemperature);
+    }
+    const focusedMaxTemperature = document.createElement('span');
+    focusedMaxTemperature.innerHTML = Math.round(weatherData.days[dayId].tempmax);
+    focusedMaxTemperature.id = 'focusedMaxTemperature';
+    focusedMaxTemperature.className = 'focusedSmallTemp';
+    focusedTemperatureContainer.appendChild(focusedMaxTemperature);
+    focusedWeatherContainer.appendChild(focusedTemperatureContainer);
+    /*
+    //focused weather description
+    const focusedWeatherDescription = document.createElement('span');
+    focusedWeatherDescription.id = 'focusedWeatherDescription';
+    focusedWeatherDescription.className = 'focusedWeatherData';
+    focusedWeatherDescription.innerHTML = weatherData.currentConditions.conditions;
+    focusedWeatherContainer.appendChild(focusedWeatherDescription);
+    */
+    //searched location
+    const searchedLocation = document.createElement('span');
+    searchedLocation.id = 'searchedLocation';
+    searchedLocation.className = 'searchedLocation';
+    searchedLocation.innerHTML = weatherData.resolvedAddress;
+    focusedWeatherContainer.appendChild(searchedLocation)
     //focused wind
     const focusedWindPower = document.createElement('span');
     focusedWindPower.id = 'focusedWindPower';
-    focusedWindPower.class = 'focusedWeatherData';
+    focusedWindPower.className = 'focusedWeatherData';
     focusedWindPower.innerHTML = weatherData.currentConditions.windspeed;
     focusedWeatherDataContainer.appendChild(focusedWindPower);
     //focused feels like temp
     const feelsLike = document.createElement('span');
     feelsLike.id = 'feelsLike';
-    feelsLike.className = 'focusedWeatherData'
-    feelsLike.innerHTML = weatherData.currentConditions.feelslike;
+    feelsLike.className = 'focusedWeatherData';
+    feelsLike.innerHTML = `Feels like: ${weatherData.currentConditions.feelslike}`;
     focusedWeatherDataContainer.appendChild(feelsLike);
+    //focused rainprob
+    const rainProb = document.createElement('span');
+    rainProb.id = 'focusedRainProb';
+    rainProb.className = 'focusedWeatherData';
+    rainProb.innerHTML = `Rain probability: ${weatherData.currentConditions.precipprob} %`
+    focusedWeatherDataContainer.appendChild(rainProb);
+    //focused sunrise
+    const sunrise = document.createElement('span');
+    sunrise.id = 'sunrise';
+    sunrise.className = 'focusedWeatherData';
+    sunrise.innerHTML = weatherData.currentConditions.sunrise.substring(0,5);
+    focusedWeatherDataContainer.appendChild(sunrise);
+    //focused sunset
+    const sunset = document.createElement('span');
+    sunset.id = 'sunset';
+    sunset.className = 'focusedWeatherData';
+    sunset.innerHTML = weatherData.currentConditions.sunset.substring(0,5);
+    focusedWeatherDataContainer.appendChild(sunset);
 //maybe I'll add more things here later///
     //next day button
     const nextDayButton = document.createElement('button');

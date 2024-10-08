@@ -1,14 +1,15 @@
 import { display } from './display.js';
 
-async function getWeatherData(location){
+async function getWeatherData(location, dayId=0){
     try{
         const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?key=M3RJ39PEGKF2ADNXQ3FVYBYPT`, 
+            
             {
                 mode: 'cors'
             }
         )
-        const data = await response.json();
-        display(data);
+        let data = await response.json();
+        display(data, dayId);
     }
     catch(error){
         console.error('There was a problem with the fetch operation:' + error);
@@ -28,9 +29,9 @@ export function returnIconForFocusedWeather(weather, time, sunset){
                 return 'assets/rainNight.png';
             }
             return 'assets/rainy.png';
-        
         case 'snow' :
             return 'assets/snow.png';
+        case 'overcast':
         case 'cloudy':
         case 'partly-cloudy-day':
             return 'assets/cloudy.png';
@@ -49,12 +50,12 @@ export function returnIconForFocusedWeather(weather, time, sunset){
 }
 
 function fahrenheitToCelsius(temperatureInFahrenheit){
-    temperatureInCelsius = (temperatureInFahrenheit-30) / 1.8;
+    const temperatureInCelsius = (temperatureInFahrenheit-30) / 1.8;
     return temperatureInCelsius;
 }
 
 function celsiusToFahrenheit(temperatureInCelsius){
-    temperatureInFahrenheit = (temperatureInCelsius*1.8) + 32;
+    const temperatureInFahrenheit = (temperatureInCelsius*1.8) + 32;
     return temperatureInFahrenheit;
 }
 
@@ -67,3 +68,5 @@ const form = document.querySelector('#form');
 form.addEventListener('submit', function(event){
     event.preventDefault(), clearDisplay(), getWeatherData(getInputData());
 });
+
+getWeatherData('Eger')
