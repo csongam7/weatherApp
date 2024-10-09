@@ -1,5 +1,6 @@
 import { returnIconForFocusedWeather } from "./logic.js";
 
+
 export function display(weatherData, dayId){
     
     console.log(weatherData);
@@ -30,11 +31,13 @@ export function display(weatherData, dayId){
     middleContainer.className = 'container';
     mainContainer.appendChild(middleContainer);
     //previous day 
+    /*
     const previousDayButton = document.createElement('button');
     previousDayButton.id = 'previousDayButton';
     previousDayButton.className = 'dayChangeButton';
     middleContainer.appendChild(previousDayButton);
     previousDayButton.innerHTML = '<';
+    */
     //focused weather container
     const focusedWeatherContainer = document.createElement('div');
     focusedWeatherContainer.id = 'focusedWeatherContainer';
@@ -85,14 +88,6 @@ export function display(weatherData, dayId){
     focusedMaxTemperature.className = 'focusedSmallTemp';
     focusedTemperatureContainer.appendChild(focusedMaxTemperature);
     focusedWeatherContainer.appendChild(focusedTemperatureContainer);
-    /*
-    //focused weather description
-    const focusedWeatherDescription = document.createElement('span');
-    focusedWeatherDescription.id = 'focusedWeatherDescription';
-    focusedWeatherDescription.className = 'focusedWeatherData';
-    focusedWeatherDescription.innerHTML = weatherData.currentConditions.conditions;
-    focusedWeatherContainer.appendChild(focusedWeatherDescription);
-    */
     //searched location
     const searchedLocation = document.createElement('span');
     searchedLocation.id = 'searchedLocation';
@@ -100,62 +95,108 @@ export function display(weatherData, dayId){
     searchedLocation.innerHTML = weatherData.resolvedAddress;
     focusedWeatherContainer.appendChild(searchedLocation)
     //focused wind
-    const focusedWindPower = document.createElement('span');
+    const focusedWindPower = document.createElement('div');
     focusedWindPower.id = 'focusedWindPower';
+    const focusedWindPowerTitle = document.createElement('span');
+    focusedWindPowerTitle.innerHTML = 'Wind power';
+    focusedWindPowerTitle.className = 'weatherDataTitle';
+    focusedWindPower.appendChild(focusedWindPowerTitle);
     focusedWindPower.className = 'focusedWeatherData';
     focusedWindPower.innerHTML = weatherData.currentConditions.windspeed;
     focusedWeatherDataContainer.appendChild(focusedWindPower);
     //focused feels like temp
-    const feelsLike = document.createElement('span');
+    const feelsLike = document.createElement('div');
     feelsLike.id = 'feelsLike';
+    const feelsLikeTitle = document.createElement('span');
+    feelsLikeTitle.innerHTML = 'Feels like';
+    feelsLikeTitle.className = 'weatherDataTitle';
+    feelsLike.appendChild(feelsLikeTitle);
     feelsLike.className = 'focusedWeatherData';
     feelsLike.innerHTML = `Feels like: ${weatherData.currentConditions.feelslike}`;
     focusedWeatherDataContainer.appendChild(feelsLike);
     //focused rainprob
-    const rainProb = document.createElement('span');
+    const rainProb = document.createElement('div');
     rainProb.id = 'focusedRainProb';
+    const rainProbTitle = document.createElement('span');
+    rainProbTitle.innerHTML = 'Rain probability';
+    rainProbTitle.className = 'weatherDataTitle';
+    rainProb.appendChild(rainProbTitle);
     rainProb.className = 'focusedWeatherData';
-    rainProb.innerHTML = `Rain probability: ${weatherData.currentConditions.precipprob} %`
+    rainProb.textContent = `Rain: ${weatherData.currentConditions.precipprob} %`
     focusedWeatherDataContainer.appendChild(rainProb);
     //focused sunrise
-    const sunrise = document.createElement('span');
+    const sunrise = document.createElement('div');
+    const sunriseTitle = document.createElement('span');
+    sunriseTitle.innerHTML = 'Sunrise';
+    sunriseTitle.className = 'weatherDataTitle';
+    sunrise.appendChild(sunriseTitle);
     sunrise.id = 'sunrise';
     sunrise.className = 'focusedWeatherData';
     sunrise.innerHTML = weatherData.currentConditions.sunrise.substring(0,5);
     focusedWeatherDataContainer.appendChild(sunrise);
     //focused sunset
-    const sunset = document.createElement('span');
+    const sunset = document.createElement('div');
+    const sunsetTitle = document.createElement('span')
+    sunsetTitle.textContent = 'Sunset';
+    sunsetTitle.className = 'weatherDataTitle';
     sunset.id = 'sunset';
     sunset.className = 'focusedWeatherData';
     sunset.innerHTML = weatherData.currentConditions.sunset.substring(0,5);
     focusedWeatherDataContainer.appendChild(sunset);
 //maybe I'll add more things here later///
     //next day button
+    /*
     const nextDayButton = document.createElement('button');
     nextDayButton.id = 'nextDayButton';
     nextDayButton.className = 'dayChangeButton';
     nextDayButton.innerHTML = '>';
     middleContainer.appendChild(nextDayButton);
+*/
 
-    const nextHoursSlider = document.createElement('div');
-    nextHoursSlider.id = 'nextHoursSlider';
-    nextHoursSlider.class = 'slider';
-    middleContainer.appendChild(nextHoursSlider);
-    createNextHoursContainers();
-
-    const mainContainerFooter = document.createElement('div');
+const mainContainerFooter = document.createElement('div');
     mainContainerFooter.id = 'mainContainerFooter';
     mainContainerFooter.className = 'container';
     createNextDaysContainers();
     mainContainer.appendChild(mainContainerFooter);
 
-    function createNextHoursContainers(){
-        let time = parseInt(weatherData.currentConditions.datetime.split(':')[0]);
+    //next hours temperature & weather container
+    const nextHoursSlider = document.createElement('div');
+    nextHoursSlider.id = 'nextHoursSlider';
+    nextHoursSlider.className = 'swiper';
+    focusedWeatherContainer.appendChild(nextHoursSlider);
+
+    const sliderWrapper = document.createElement('div');
+    sliderWrapper.className = 'swiper-wrapper'
+    nextHoursSlider.appendChild(sliderWrapper);
+
+    const cardList = document.createElement('div');
+    cardList.className = 'cardList';
+    cardList.classList.add('swiper-wrapper');
+    sliderWrapper.appendChild(cardList);
+/*
+    const previousTimeButton = document.createElement('button');
+    previousTimeButton.id = 'prevTimeButton';
+    previousTimeButton.className = 'sliderButton'
+    previousTimeButton.innerHTML = '<';
+    nextHoursSlider.appendChild(previousTimeButton)
+    const nextTimeButton = document.createElement('button');
+    nextTimeButton.id = 'nextTimeButton';
+    nextTimeButton.className = 'sliderButton'
+    nextTimeButton.innerHTML = '>';
+    nextHoursSlider.appendChild(nextTimeButton)
+  */  
+    createNextHoursCards();
+    function createNextHoursCards(){
+        let time = parseInt(weatherData.currentConditions.datetime.split(':')[0])+1;
         let dayIndex = 0;
         for(let i = 0; i <= 24; i++){
-            const nextHourContainer = document.createElement('div');
-            nextHourContainer.className = 'nextHourContainer';
-            nextHourContainer.id = `${time}HourContainer`;
+            const nextHourCard = document.createElement('div');
+            const nextHourCardHeader = document.createElement('div');
+            nextHourCard.appendChild(nextHourCardHeader);
+            nextHourCardHeader.className = 'nextHourCardHeader';
+            nextHourCard.classList.add('swiper-slide');
+            nextHourCard.classList.add('nextHourCard');
+            nextHourCard.id = `${time}HourContainer`;
             //display the next hour's time
             const nextHourTime = document.createElement('span');
             nextHourTime.className = 'nextHourTime';
@@ -165,21 +206,34 @@ export function display(weatherData, dayId){
             else{
                 nextHourTime.innerHTML = `${time}:00`;
             }
-            nextHourContainer.appendChild(nextHourTime);
+            nextHourCardHeader.appendChild(nextHourTime);
+
             //change to the next day if necessary
             if(time == 23){
                 time = 0;
-                dayIndex = 1;
+                dayIndex++;
             }
+            const rainPercentage = document.createElement('span');
+            rainPercentage.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#FFFFFF"><path d="M558-84q-15 8-30.5 2.5T504-102l-60-120q-8-15-2.5-30.5T462-276q15-8 30.5-2.5T516-258l60 120q8 15 2.5 30.5T558-84Zm240 0q-15 8-30.5 2.5T744-102l-60-120q-8-15-2.5-30.5T702-276q15-8 30.5-2.5T756-258l60 120q8 15 2.5 30.5T798-84Zm-480 0q-15 8-30.5 2.5T264-102l-60-120q-8-15-2.5-30.5T222-276q15-8 30.5-2.5T276-258l60 120q8 15 2.5 30.5T318-84Zm-18-236q-91 0-155.5-64.5T80-540q0-83 55-145t136-73q32-57 87.5-89.5T480-880q90 0 156.5 57.5T717-679q69 6 116 57t47 122q0 75-52.5 127.5T700-320H300Zm0-80h400q42 0 71-29t29-71q0-42-29-71t-71-29h-60v-40q0-66-47-113t-113-47q-48 0-87.5 26T333-704l-10 24h-25q-57 2-97.5 42.5T160-540q0 58 41 99t99 41Zm180-200Z"/></svg>' + Math.round(weatherData.days[dayIndex].hours[time].precipprob)+'%';
+            rainPercentage.className = 'nextHourRain';
+            nextHourCard.appendChild(rainPercentage);
             const nextHourTemperature = document.createElement('span');
-            nextHourTemperature.innerHTML = weatherData.days[dayIndex].hours[time].temp;
-            nextHourContainer.appendChild(nextHourTemperature);
-
-
-            //nextHourIcon.src = ...
+            nextHourTemperature.className = 'nextHourTemp';
+            nextHourTemperature.innerHTML = Math.round(weatherData.days[dayIndex].hours[time].temp);
+            nextHourCard.appendChild(nextHourTemperature);
+            const icon = document.createElement('img');
+            icon.src = returnIconForFocusedWeather(weatherData.days[dayIndex].hours[time].icon, time);
+            icon.className = 'nextHoursIcon';
+            nextHourCard.appendChild(icon);
+            cardList.appendChild(nextHourCard);
             time++;
         }
     }
+
+    const nextButton = document.createElement('div');
+    nextButton.className='swiper-button-next';
+    const previousButton = document.createElement('div');
+    previousButton.className = 'swiper-button-previous';
 
     function createNextDaysContainers(){
         for(let i = 1; i < 15; i++){

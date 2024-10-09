@@ -22,7 +22,7 @@ function getInputData(){
     return inputValue;
 }
 
-export function returnIconForFocusedWeather(weather, time, sunset){
+export function returnIconForFocusedWeather(weather, time, sunset=19){
     switch(weather){
         case 'rain' :
             if(time > sunset){
@@ -69,4 +69,4 @@ form.addEventListener('submit', function(event){
     event.preventDefault(), clearDisplay(), getWeatherData(getInputData());
 });
 
-getWeatherData('Eger')
+getWeatherData('Eger');
