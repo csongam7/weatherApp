@@ -13,7 +13,6 @@
     <div class="main container">
         <div class="header">
             <img class="catsAndDogsInnit" alt="">
-            <button class="temperatureChange">F°| C</button>
             <div class="currentDate"></div>
             <form id="form">
                 <input type="text" name="address" placeholder="Town to seach the wather of">
@@ -23,7 +22,11 @@
         <div id="middleContainer" class="container">
             <div id="focusedWeatherContainer">
                 <span class="searchedLocation"></span>
-                <img id="focusedWeatherIcon" alt="">
+                <div class="middleIconContainer">
+                    <img class="temperatureIcon" id="celsius" src="./assets/thermometerCelsius.png" alt="">
+                    <img id="focusedWeatherIcon" alt="">
+                    <img class="temperatureIcon" id="fahrenheit" src="./assets/thermometerFahrenheit.png" alt="">
+                </div>
                 <div class="focusedWeatherTemperaturesContainer">
                     <div class="focusedTemperature" id="focusedLowestTemperature"></div>
                     <div class="focusedTemperature" id="currentTemperature"></div>
@@ -40,7 +43,6 @@
                     <div class="focusedWeatherData" id="sunset"></div>
                 </div>
                 <div id="hourlyWeatherContainer" class="slider">
-                </div>
             </div>
         </div>
         <div id="dailyForecastContainer" class="slider">

@@ -58,10 +58,17 @@ html, body{
 }
 
 .searchedLocation{
+    grid-column: 2;
+    grid-row: 1;
     text-overflow: ellipsis;
     align-self: center;
     text-align: center;
     display: block;
+}
+
+.middleIconContainer{
+    grid-column: 2;
+    grid-row: 2;
 }
 
 #focusedWeatherContainer{
@@ -100,6 +107,10 @@ html, body{
     justify-content: center;
 }
 
+#focusedWeatherDataRight{
+    grid-column: 3;
+}
+
 .focusedWeatherTemperaturesContainer{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -114,15 +125,24 @@ html, body{
     font-size: 200%;
 }
 
-.searchedLocation{
-    font-size: calc(1rem + 1vw);
+.temperatureIcon{
+    height: 4vw;
+    align-self: center;
+}
+
+#celsius{
     grid-column: 2;
-    grid-row: 1;
+    grid-row: 2;
+}
+
+#fahrenheit{
+    grid-column: 4;
+    grid-row: 2;
 }
 
 #focusedWeatherIcon{
     margin-top: 2vh;
-    grid-column: 2;
+    grid-column: 3;
     grid-row: 2;
     height: 10vw;
 }
