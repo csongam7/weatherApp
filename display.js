@@ -1,11 +1,26 @@
 import { returnIconForFocusedWeather } from "./logic.js";
 
 
-export function display(weatherData, dayId){
-    
+export function fillHtmlWithData(weatherData, dayId, temperatureType){
     console.log(weatherData);
 
-    const mainContainer = document.createElement('div');
+//focused weather
+    //searched location
+    document.querySelector('.searchedLocation').innerHTML = weatherData.resolvedAddress;
+    //big icon
+    document.querySelector('#focusedWeatherIcon').src = returnIconForFocusedWeather(weatherData.currentConditions.icon, parseInt(weatherData.currentConditions.datetime), parseInt(weatherData.currentConditions.sunset));
+    //the three main temperatures
+    document.querySelector('#focusedLowestTemperature').innerHTML = Math.round(weatherData.days[dayId].tempmin);
+    document.querySelector('#currentTemperature').innerHTML = Math.round(weatherData.currentConditions.temp);
+    document.querySelector('#focusedHighestTemperature').innerHTML = Math.round(weatherData.days[dayId].tempmax);
+
+    document.querySelector('#humidity').innerHTML = Math.round(weatherData.days[dayId].humidity) + '%';
+    document.querySelector('#sunset').innerHTML = weatherData.days[dayId].sunset.substring(0,5);
+    document.querySelector('#sunrise').innerHTML = weatherData.days[dayId].sunrise.substring(0,5);
+    document.querySelector('#rainChance').innerHTML = Math.round(weatherData.days[dayId].precipcover) + '%';
+    document.querySelector('#feelsLike').innerHTML = Math.round(weatherData.days[dayId].feelslike);
+    document.querySelector('#windPwr').innerHTML = Math.round(weatherData.days[dayId].windspeed);
+    /*const mainContainer = document.createElement('div');
     mainContainer.id = 'mainContainer';
     mainContainer.className = 'container';
     document.body.appendChild(mainContainer);
@@ -23,7 +38,16 @@ export function display(weatherData, dayId){
     currentDate.className = 'currentDate';
     currentDate.innerHTML = weatherData.days[0].datetime;
     header.appendChild(currentDate);
-    
+    //fahrenheit celsius change button
+    const temperatureChangeButton = document.createElement('button');
+    temperatureChangeButton.id = 'temperatureChangeButton';
+    header.appendChild(temperatureChangeButton);
+    if(temperatureType == 'celsius'){
+        temperatureChangeButton.innerHTML = 'F˚'    
+    }
+    else{
+        temperatureChangeButton.innerHTML = 'C˚'
+    }
     mainContainer.appendChild(header);
 //middleContainer
     const middleContainer = document.createElement('div');
@@ -37,7 +61,7 @@ export function display(weatherData, dayId){
     previousDayButton.className = 'dayChangeButton';
     middleContainer.appendChild(previousDayButton);
     previousDayButton.innerHTML = '<';
-    */
+    
     //focused weather container
     const focusedWeatherContainer = document.createElement('div');
     focusedWeatherContainer.id = 'focusedWeatherContainer';
@@ -53,7 +77,7 @@ export function display(weatherData, dayId){
     focusedMaxTemp.id = 'focusedMaxTemp';
     focusedMaxTemp.innerHTML = weatherData.currentConditions
     const maxTempIcon = document.createElement('img');
-    maxTempIcon.id = 'focusedMaxTempIcon';*/
+    maxTempIcon.id = 'focusedMaxTempIcon';
     //focused midTemperature
     const focusedmidTemperature = document.createElement('span');
     focusedmidTemperature.id = 'focusedmidTemperature';
@@ -74,18 +98,21 @@ export function display(weatherData, dayId){
     focusedMinTemperature.innerHTML = Math.round(weatherData.days[dayId].tempmin);
     focusedMinTemperature.id = 'focusedMinTemperature';
     focusedMinTemperature.className = 'focusedSmallTemp';
+    focusedMinTemperature.classList.add('temp');
     focusedTemperatureContainer.appendChild(focusedMinTemperature);
     if(dayId == 0){
         const focusedCurrentTemperature = document.createElement('span');
         focusedCurrentTemperature.innerHTML = Math.round(weatherData.currentConditions.temp);
         focusedCurrentTemperature.id = 'focusedCurrentTemperature';
         focusedCurrentTemperature.className = 'focusedBigTemp';
+        focusedCurrentTemperature.classList.add('temp');
         focusedTemperatureContainer.appendChild(focusedCurrentTemperature);
     }
     const focusedMaxTemperature = document.createElement('span');
     focusedMaxTemperature.innerHTML = Math.round(weatherData.days[dayId].tempmax);
     focusedMaxTemperature.id = 'focusedMaxTemperature';
     focusedMaxTemperature.className = 'focusedSmallTemp';
+    focusedMaxTemperature.classList.add('temp');
     focusedTemperatureContainer.appendChild(focusedMaxTemperature);
     focusedWeatherContainer.appendChild(focusedTemperatureContainer);
     //searched location
@@ -112,6 +139,7 @@ export function display(weatherData, dayId){
     feelsLikeTitle.className = 'weatherDataTitle';
     feelsLike.appendChild(feelsLikeTitle);
     feelsLike.className = 'focusedWeatherData';
+    feelsLike.classList.add('temp');
     feelsLike.innerHTML = `Feels like: ${weatherData.currentConditions.feelslike}`;
     focusedWeatherDataContainer.appendChild(feelsLike);
     //focused rainprob
@@ -151,7 +179,6 @@ export function display(weatherData, dayId){
     nextDayButton.className = 'dayChangeButton';
     nextDayButton.innerHTML = '>';
     middleContainer.appendChild(nextDayButton);
-*/
 
 const mainContainerFooter = document.createElement('div');
     mainContainerFooter.id = 'mainContainerFooter';
@@ -173,7 +200,8 @@ const mainContainerFooter = document.createElement('div');
     cardList.className = 'cardList';
     cardList.classList.add('swiper-wrapper');
     sliderWrapper.appendChild(cardList);
-/*
+*/
+    /*
     const previousTimeButton = document.createElement('button');
     previousTimeButton.id = 'prevTimeButton';
     previousTimeButton.className = 'sliderButton'
@@ -185,7 +213,7 @@ const mainContainerFooter = document.createElement('div');
     nextTimeButton.innerHTML = '>';
     nextHoursSlider.appendChild(nextTimeButton)
   */  
-    createNextHoursCards();
+    //createNextHoursCards();
     function createNextHoursCards(){
         let time = parseInt(weatherData.currentConditions.datetime.split(':')[0])+1;
         let dayIndex = 0;
@@ -219,6 +247,7 @@ const mainContainerFooter = document.createElement('div');
             nextHourCard.appendChild(rainPercentage);
             const nextHourTemperature = document.createElement('span');
             nextHourTemperature.className = 'nextHourTemp';
+            nextHourTemperature.classList.add('temp');
             nextHourTemperature.innerHTML = Math.round(weatherData.days[dayIndex].hours[time].temp);
             nextHourCard.appendChild(nextHourTemperature);
             const icon = document.createElement('img');

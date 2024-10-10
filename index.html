@@ -10,10 +10,44 @@
     <link href="https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap" rel="stylesheet">
 </head>
 <body>
-    <form id="form">
-        <input type="text" name="address" placeholder="Town to seach the wather of">
-        <button type="submit" id="submit">Search</button>
-    </form>
+    <div class="main container">
+        <div class="header">
+            <img class="catsAndDogsInnit" alt="">
+            <button class="temperatureChange">F°| C</button>
+            <div class="currentDate"></div>
+            <form id="form">
+                <input type="text" name="address" placeholder="Town to seach the wather of">
+                <button type="submit" id="submit">Search</button>
+            </form>
+        </div>
+        <div id="middleContainer" class="container">
+            <div id="focusedWeatherContainer">
+                <span class="searchedLocation"></span>
+                <img id="focusedWeatherIcon" alt="">
+                <div class="focusedWeatherTemperaturesContainer">
+                    <div class="focusedTemperature" id="focusedLowestTemperature"></div>
+                    <div class="focusedTemperature" id="currentTemperature"></div>
+                    <div class="focusedTemperature" id="focusedHighestTemperature"></div>
+                </div>
+                <div id="focusedWeatherDataLeft" class="focusedWeatherDataContainer">
+                    <div class="focusedWeatherData" id="feelsLike"></div>
+                    <div class="focusedWeatherData" id="humidity"></div>
+                    <div class="focusedWeatherData" id="sunrise"></div>
+                </div>
+                <div id="focusedWeatherDataRight" class="focusedWeatherDataContainer">
+                    <div class="focusedWeatherData" id="rainChance"></div>
+                    <div class="focusedWeatherData" id="windPwr"></div>
+                    <div class="focusedWeatherData" id="sunset"></div>
+                </div>
+                <div id="hourlyWeatherContainer" class="slider">
+                </div>
+            </div>
+        </div>
+        <div id="dailyForecastContainer" class="slider">
+        </div>
+    </div>
+    
+
     
     <script src="logic.js" type="module"></script>
     

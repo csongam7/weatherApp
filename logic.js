@@ -1,4 +1,4 @@
-import { display } from './display.js';
+import { fillHtmlWithData } from './display.js';
 
 async function getWeatherData(location, dayId=0){
     try{
@@ -9,7 +9,7 @@ async function getWeatherData(location, dayId=0){
             }
         )
         let data = await response.json();
-        display(data, dayId);
+        fillHtmlWithData(data, dayId);
     }
     catch(error){
         console.error('There was a problem with the fetch operation:' + error);
@@ -49,14 +49,13 @@ export function returnIconForFocusedWeather(weather, time, sunset=19){
 
 }
 
-function fahrenheitToCelsius(temperatureInFahrenheit){
-    const temperatureInCelsius = (temperatureInFahrenheit-30) / 1.8;
-    return temperatureInCelsius;
-}
-
-function celsiusToFahrenheit(temperatureInCelsius){
-    const temperatureInFahrenheit = (temperatureInCelsius*1.8) + 32;
-    return temperatureInFahrenheit;
+function changeTemperatureType(temperature, type){
+    if(type == 'celsius'){
+        return (temperature - 30) / 1.8;    
+    }
+    else{
+        return(temperatureInCelsius * 1.8) + 32;    
+    }
 }
 
 function clearDisplay(){
