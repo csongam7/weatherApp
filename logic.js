@@ -1,5 +1,6 @@
 import { fillHtmlWithData } from './display.js';
 
+let temperatureUnit = 'fahrenheit';
 async function getWeatherData(location, dayId=0){
     try{
         const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?key=M3RJ39PEGKF2ADNXQ3FVYBYPT`, 
@@ -9,7 +10,7 @@ async function getWeatherData(location, dayId=0){
             }
         )
         let data = await response.json();
-        fillHtmlWithData(data, dayId);
+        fillHtmlWithData(data, dayId, temperatureUnit);
     }
     catch(error){
         console.error('There was a problem with the fetch operation:' + error);
@@ -52,15 +53,16 @@ export function returnIconForFocusedWeather(weather, time, sunset=19){
 export function changeTemperatureType(changeTo){
     const allTemperatures = document.querySelectorAll('.temperature');
     if(changeTo == 'celsius'){
-        allTemperatures.forEach((temperature) => temperature.innerHTML = Number((temperature.innerHTML.slice(0,-2) - 32) * 5/9).toFixed(1) + '˚C');
+        allTemperatures.forEach((temperature) => temperature.innerHTML = Number((temperature.innerHTML.slice(0,-2) - 32) / 1.8).toFixed(1) + '˚C');
         document.querySelector('#celsius').classList.add('activeUnit');
         document.querySelector('#fahrenheit').classList.remove('activeUnit');
-                
+        temperatureUnit = 'celsius';        
     }
     else if(changeTo == 'fahrenheit'){
-        allTemperatures.forEach((temperature) => temperature.innerHTML = Number((temperature.innerHTML.slice(0,-2) * 9/5) + 32).toFixed(1) + '˚F');
+        allTemperatures.forEach((temperature) => temperature.innerHTML = Number((temperature.innerHTML.slice(0,-2) * 1.8) + 32).toFixed(1) + '˚F');
         document.querySelector('#celsius').classList.remove('activeUnit');
         document.querySelector('#fahrenheit').classList.add('activeUnit');
+        temperatureUnit = 'fahrenheit';
     }
 }
 
@@ -71,7 +73,7 @@ function clearDisplay(){
 
 const form = document.querySelector('#form');
 form.addEventListener('submit', function(event){
-    event.preventDefault(), clearDisplay(), getWeatherData(getInputData());
+    event.preventDefault(), getWeatherData(getInputData());
 });
 
 getWeatherData('Eger');
