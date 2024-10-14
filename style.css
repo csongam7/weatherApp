@@ -135,16 +135,16 @@ html, body{
     grid-row: 2;
 }
 
-#fahrenheit{
-    grid-column: 4;
-    grid-row: 2;
-}
-
 #focusedWeatherIcon{
     margin-top: 2vh;
     grid-column: 3;
     grid-row: 2;
     height: 10vw;
+}
+
+#fahrenheit{
+    grid-column: 4;
+    grid-row: 2;
 }
 
 /*next hours container*/

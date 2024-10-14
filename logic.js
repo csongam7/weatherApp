@@ -49,12 +49,13 @@ export function returnIconForFocusedWeather(weather, time, sunset=19){
 
 }
 
-function changeTemperatureType(temperature, type){
-    if(type == 'celsius'){
-        return (temperature - 30) / 1.8;    
+export function changeTemperatureType(changeTo){
+    const allTemperatures = document.querySelectorAll('.temperature');
+    if(changeTo == 'celsius'){
+        allTemperatures.forEach((temperature) => temperature.innerHTML = Number((temperature.innerHTML - 32) * 5/9).toFixed(1));
     }
-    else{
-        return(temperatureInCelsius * 1.8) + 32;    
+    else if(changeTo == 'fahrenheit'){
+        allTemperatures.forEach((temperature) => temperature.innerHTML = Number((temperature.innerHTML * 9/5) + 32).toFixed(1));
     }
 }
 
