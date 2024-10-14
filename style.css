@@ -126,9 +126,12 @@ html, body{
 }
 
 .temperatureIcon{
+    cursor: pointer;
     height: 4vw;
     align-self: center;
-    transition: ease-in-out 3ms;
+}
+.activeUnit{
+    pointer-events: none;
 }
 
 #celsius{
@@ -226,8 +229,3 @@ html, body{
     order: 1;
     width: 7vw;
 }
-
-.activeUnit{
-    pointer-events: none;
-}
-
