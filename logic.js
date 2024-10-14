@@ -53,9 +53,14 @@ export function changeTemperatureType(changeTo){
     const allTemperatures = document.querySelectorAll('.temperature');
     if(changeTo == 'celsius'){
         allTemperatures.forEach((temperature) => temperature.innerHTML = Number((temperature.innerHTML - 32) * 5/9).toFixed(1));
+        document.querySelector('#celsius').classList.add('active');
+        document.querySelector('#fahrenheit').classList.remove('active');
+                
     }
     else if(changeTo == 'fahrenheit'){
         allTemperatures.forEach((temperature) => temperature.innerHTML = Number((temperature.innerHTML * 9/5) + 32).toFixed(1));
+        document.querySelector('#celsius').classList.remove('active');
+        document.querySelector('#fahrenheit').classList.add('active');
     }
 }
 
