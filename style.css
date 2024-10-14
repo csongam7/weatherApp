@@ -227,7 +227,7 @@ html, body{
     width: 7vw;
 }
 
-.active{
+.activeUnit{
     pointer-events: none;
 }
 

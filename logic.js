@@ -52,15 +52,15 @@ export function returnIconForFocusedWeather(weather, time, sunset=19){
 export function changeTemperatureType(changeTo){
     const allTemperatures = document.querySelectorAll('.temperature');
     if(changeTo == 'celsius'){
-        allTemperatures.forEach((temperature) => temperature.innerHTML = Number((temperature.innerHTML - 32) * 5/9).toFixed(1));
-        document.querySelector('#celsius').classList.add('active');
-        document.querySelector('#fahrenheit').classList.remove('active');
+        allTemperatures.forEach((temperature) => temperature.innerHTML = Number((temperature.innerHTML.slice(0,-2) - 32) * 5/9).toFixed(1) + '˚C');
+        document.querySelector('#celsius').classList.add('activeUnit');
+        document.querySelector('#fahrenheit').classList.remove('activeUnit');
                 
     }
     else if(changeTo == 'fahrenheit'){
-        allTemperatures.forEach((temperature) => temperature.innerHTML = Number((temperature.innerHTML * 9/5) + 32).toFixed(1));
-        document.querySelector('#celsius').classList.remove('active');
-        document.querySelector('#fahrenheit').classList.add('active');
+        allTemperatures.forEach((temperature) => temperature.innerHTML = Number((temperature.innerHTML.slice(0,-2) * 9/5) + 32).toFixed(1) + '˚F');
+        document.querySelector('#celsius').classList.remove('activeUnit');
+        document.querySelector('#fahrenheit').classList.add('activeUnit');
     }
 }
 

@@ -2,28 +2,21 @@ import { returnIconForFocusedWeather, changeTemperatureType } from "./logic.js";
 
 
 export function fillHtmlWithData(weatherData, dayId, temperatureType){
-    console.log(weatherData);
-
 //focused weather
     //searched location
     document.querySelector('.searchedLocation').innerHTML = weatherData.resolvedAddress;
     //big icon
     document.querySelector('#focusedWeatherIcon').src = returnIconForFocusedWeather(weatherData.currentConditions.icon, parseInt(weatherData.currentConditions.datetime), parseInt(weatherData.currentConditions.sunset));
     //the three main temperatures
-    if(temperatureType == 'celsius'){
-        document.querySelector('#focusedLowestTemperature').innerHTML = Number(weatherData.days[dayId].tempmin.toFixed(1));
-        document.querySelector('#currentTemperature').innerHTML = Number(weatherData.currentConditions.temp.toFixed(1));
-        document.querySelector('#focusedHighestTemperature').innerHTML = Number(weatherData.days[dayId].tempmax.toFixed(1));    
-    }
-    document.querySelector('#focusedLowestTemperature').innerHTML = Number(weatherData.days[dayId].tempmin.toFixed(1));
-    document.querySelector('#currentTemperature').innerHTML = Number(weatherData.currentConditions.temp.toFixed(1));
-    document.querySelector('#focusedHighestTemperature').innerHTML = Math.round(weatherData.days[dayId].tempmax);
+    document.querySelector('#focusedLowestTemperature').innerHTML = Number(weatherData.days[dayId].tempmin.toFixed(1)) + '˚F';
+    document.querySelector('#currentTemperature').innerHTML = Number(weatherData.currentConditions.temp.toFixed(1)) + '˚F';
+    document.querySelector('#focusedHighestTemperature').innerHTML = Math.round(weatherData.days[dayId].tempmax) + '˚F';
 
     document.querySelector('#humidity').innerHTML = Math.round(weatherData.days[dayId].humidity) + '%';
     document.querySelector('#sunset').innerHTML = weatherData.days[dayId].sunset.substring(0,5);
     document.querySelector('#sunrise').innerHTML = weatherData.days[dayId].sunrise.substring(0,5);
     document.querySelector('#rainChance').innerHTML = Math.round(weatherData.days[dayId].precipcover) + '%';
-    document.querySelector('#feelsLike').innerHTML = Number(weatherData.days[dayId].feelslike.toFixed(1));
+    document.querySelector('#feelsLike').innerHTML = Number(weatherData.days[dayId].feelslike.toFixed(1)) + '˚F';
     document.querySelector('#windPwr').innerHTML = Math.round(weatherData.days[dayId].windspeed);
     document.querySelector('#celsius').addEventListener('click', function(){changeTemperatureType('celsius')});
     document.querySelector('#fahrenheit').addEventListener('click', function(){changeTemperatureType('fahrenheit')});
@@ -220,7 +213,7 @@ const mainContainerFooter = document.createElement('div');
     nextTimeButton.className = 'sliderButton'
     nextTimeButton.innerHTML = '>';
     nextHoursSlider.appendChild(nextTimeButton)
-  */  
+  */
     //createNextHoursCards();
     function createNextHoursCards(){
         let time = parseInt(weatherData.currentConditions.datetime.split(':')[0])+1;
