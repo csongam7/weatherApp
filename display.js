@@ -4,7 +4,6 @@ document.querySelector('#celsius').addEventListener('click', function(){changeTe
 document.querySelector('#fahrenheit').addEventListener('click', function(){changeTemperatureType('fahrenheit')});
 
 export function fillHtmlWithData(weatherData, dayId, temperatureUnit){
-    console.log(weatherData);
 //focused weather
     //searched location
     document.querySelector('.searchedLocation').innerHTML = weatherData.resolvedAddress;
@@ -15,10 +14,6 @@ export function fillHtmlWithData(weatherData, dayId, temperatureUnit){
     document.querySelector('#currentTemperature').innerHTML = Number(weatherData.currentConditions.temp.toFixed(1)) + '˚F';
     document.querySelector('#focusedHighestTemperature').innerHTML = Math.round(weatherData.days[dayId].tempmax) + '˚F';
     document.querySelector('#feelsLike').innerHTML = Number(weatherData.days[dayId].feelslike.toFixed(1)) + '˚F';
-    if(temperatureUnit == 'celsius'){
-        changeTemperatureType('celsius');
-    }
-
     document.querySelector('#humidity').innerHTML = Math.round(weatherData.days[dayId].humidity) + '%';
     document.querySelector('#sunset').innerHTML = weatherData.days[dayId].sunset.substring(0,5);
     document.querySelector('#sunrise').innerHTML = weatherData.days[dayId].sunrise.substring(0,5);
@@ -27,10 +22,10 @@ export function fillHtmlWithData(weatherData, dayId, temperatureUnit){
     document.querySelector(`#${temperatureUnit}`).classList.add('activeUnit');    
     
     createNextHoursCards();
-
-    //createNextHoursCards();
     function createNextHoursCards(){
+
         const cardList = document.querySelector('#hourlyWeatherContainer')
+        cardList.innerHTML = '';
         let time = parseInt(weatherData.currentConditions.datetime.split(':')[0])+1;
         let dayIndex = 0;
         for(let i = 0; i <= 24; i++){
@@ -74,6 +69,9 @@ export function fillHtmlWithData(weatherData, dayId, temperatureUnit){
             cardList.appendChild(nextHourCard);
             time++;
         }
+    }
+    if(temperatureUnit == 'celsius'){
+        changeTemperatureType('celsius');
     }
 
     const nextButton = document.createElement('div');

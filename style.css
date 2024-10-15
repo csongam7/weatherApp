@@ -27,13 +27,18 @@ html, body{
     min-width: 700px;
 }
 /* HEADER */
-#header{
-    display: contents;
-    grid-template-columns: 1fr 3fr 1fr;
-    background-color: aqua;
+.header{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     grid-column: 1/-1;
     text-align: center;
     align-content: center;
+    margin:2%;
+}
+
+#form{
+    align-self: center;
+    grid-column: 2;
 }
 
 #catsAndDogsInnit{
