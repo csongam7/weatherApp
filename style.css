@@ -58,6 +58,7 @@ html, body{
 }
 
 .searchedLocation{
+    font-size: 2vw;
     grid-column: 2;
     grid-row: 1;
     text-overflow: ellipsis;
@@ -90,7 +91,7 @@ html, body{
 }
 
 @keyframes dance{
-    0%{
+    0%, 100%{
         transform: rotate(0deg)
     }
     25%{
@@ -98,9 +99,6 @@ html, body{
     }
     75%{
         transform: rotate(-5deg);
-    }
-    100%{
-        transform: rotate(0deg)
     }
 }
 
@@ -160,12 +158,22 @@ html, body{
     height: auto;
     max-height: 30%;
     margin: 1vh;
+    margin-top: 0;
     border: 6px solid black;
     background-color: rgb(31, 255, 125);
     border-radius: 3rem;
     padding: 1vw;
     align-items: center;
     justify-content: center;
+}
+
+.dataName{
+    position: absolute;
+}
+
+.dataTitle{
+    display: flex;
+    flex-direction: column;
 }
 
 #focusedWeatherDataRight{
@@ -179,14 +187,20 @@ html, body{
     align-self: center;
     grid-row: 3;
     grid-column: 2;
-    width: 50%;
+    width: 100%;
 }
 
 #currentTemperature{
     font-size: 200%;
 }
 
+#focusedLowestTemperature{
+    color: rgb(67, 67, 165);
+}
 
+#focusedHighestTemperature{
+    color: rgb(215, 25, 25);
+}
 
 /*next hours container*/
 

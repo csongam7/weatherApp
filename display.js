@@ -18,6 +18,7 @@ export function fillHtmlWithData(weatherData, dayId, temperatureUnit){
     if(temperatureUnit == 'celsius'){
         changeTemperatureType('celsius');
     }
+
     document.querySelector('#humidity').innerHTML = Math.round(weatherData.days[dayId].humidity) + '%';
     document.querySelector('#sunset').innerHTML = weatherData.days[dayId].sunset.substring(0,5);
     document.querySelector('#sunrise').innerHTML = weatherData.days[dayId].sunrise.substring(0,5);
