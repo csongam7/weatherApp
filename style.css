@@ -133,7 +133,7 @@ html, body{
 #focusedWeatherContainer{
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: auto 2fr 1fr;
+    grid-template-rows: auto 2fr 1fr auto;
     justify-items: center;
     justify-self: center;
     text-align: center;
@@ -146,8 +146,9 @@ html, body{
 
 .focusedWeatherDataContainer{
     display: grid;
-    grid-row: 1/-1;
-    align-items: center;
+    grid-row: 1/4;
+    align-items: normal;
+    justify-items: stretch;
 }
 
 .focusedWeatherData {
@@ -204,6 +205,14 @@ html, body{
 
 /*next hours container*/
 
+#hourlyWeatherContainer{
+    width: 100%;
+    grid-row: 4;
+    grid-column: span 3;
+    margin: 2%;
+    overflow-y: hidden;
+}
+
 .slider{
     display: flex;
     overflow: auto;
@@ -231,7 +240,7 @@ html, body{
 
 .nextHourCard{
     border-radius: 3rem;
-    background-color: tomato;
+    background-color: rgb(232, 112, 0);
     color: white;
     display: flex;
     gap: 10px;

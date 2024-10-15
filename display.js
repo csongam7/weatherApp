@@ -26,9 +26,11 @@ export function fillHtmlWithData(weatherData, dayId, temperatureUnit){
     document.querySelector('#windPwr').innerHTML = Math.round(weatherData.days[dayId].windspeed) + 'mph';
     document.querySelector(`#${temperatureUnit}`).classList.add('activeUnit');    
     
+    createNextHoursCards();
 
     //createNextHoursCards();
     function createNextHoursCards(){
+        const cardList = document.querySelector('#hourlyWeatherContainer')
         let time = parseInt(weatherData.currentConditions.datetime.split(':')[0])+1;
         let dayIndex = 0;
         for(let i = 0; i <= 24; i++){
