@@ -79,9 +79,29 @@ html, body{
     align-self: center;
     margin: 3%;
     justify-self: center;
+    transition: transform ease-in-out .3s;
+}
+.temperatureIcon:hover{
+    transform: scale(1.2);
 }
 .activeUnit{
     pointer-events: none;
+    animation: dance 2s infinite ease-in-out;
+}
+
+@keyframes dance{
+    0%{
+        transform: rotate(0deg)
+    }
+    25%{
+        transform: rotate(5deg);
+    }
+    75%{
+        transform: rotate(-5deg);
+    }
+    100%{
+        transform: rotate(0deg)
+    }
 }
 
 #celsius{
@@ -90,11 +110,21 @@ html, body{
 }
 
 #focusedWeatherIcon{
+    animation: levitate 2s infinite ease-in-out;
     margin-top: 2vh;
     grid-column: 2;
     grid-row: 2;
     height: 10vw;
     justify-self: center;
+}
+
+@keyframes levitate{
+    0%, 100%{
+        transform: translateY(0)
+    }
+    50%{
+        transform: translateY(-3px);
+    }
 }
 
 #fahrenheit{
