@@ -14,12 +14,14 @@ export function fillHtmlWithData(weatherData, dayId, temperatureUnit){
     document.querySelector('#focusedLowestTemperature').innerHTML = Number(weatherData.days[dayId].tempmin.toFixed(1)) + '˚F';
     document.querySelector('#currentTemperature').innerHTML = Number(weatherData.currentConditions.temp.toFixed(1)) + '˚F';
     document.querySelector('#focusedHighestTemperature').innerHTML = Math.round(weatherData.days[dayId].tempmax) + '˚F';
-
+    document.querySelector('#feelsLike').innerHTML = Number(weatherData.days[dayId].feelslike.toFixed(1)) + '˚F';
+    if(temperatureUnit == 'celsius'){
+        changeTemperatureType('celsius');
+    }
     document.querySelector('#humidity').innerHTML = Math.round(weatherData.days[dayId].humidity) + '%';
     document.querySelector('#sunset').innerHTML = weatherData.days[dayId].sunset.substring(0,5);
     document.querySelector('#sunrise').innerHTML = weatherData.days[dayId].sunrise.substring(0,5);
-    document.querySelector('#rainChance').innerHTML = Math.round(weatherData.days[dayId].precipcover) + '%';
-    document.querySelector('#feelsLike').innerHTML = Number(weatherData.days[dayId].feelslike.toFixed(1)) + '˚F';
+    document.querySelector('#rainChance').innerHTML = Math.round(weatherData.days[dayId].precipprob) + '%';
     document.querySelector('#windPwr').innerHTML = Math.round(weatherData.days[dayId].windspeed) + 'mph';
     document.querySelector(`#${temperatureUnit}`).classList.add('activeUnit');    
     
@@ -98,7 +100,7 @@ export function fillHtmlWithData(weatherData, dayId, temperatureUnit){
             const rainPercentage = document.createElement('span');
             rainPercentage.id = `${i}daysRainPercentage`;
             rainPercentage.class = 'nextDaysRainPercentage';
-            rainPercentage.innerHTML = weatherData.days[i].precipcover;
+            rainPercentage.innerHTML = weatherData.days[i].precipprob;
             nextDaysWeathers.appendChild(rainPercentage);
             mainContainerFooter.appendChild(nextDaysWeathers);
         }

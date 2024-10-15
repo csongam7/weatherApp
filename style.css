@@ -67,7 +67,38 @@ html, body{
 }
 
 .middleIconContainer{
+    display: grid;
     grid-column: 2;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-content: center;
+}
+
+.temperatureIcon{
+    cursor: pointer;
+    height: 4vw;
+    align-self: center;
+    margin: 3%;
+    justify-self: center;
+}
+.activeUnit{
+    pointer-events: none;
+}
+
+#celsius{
+    grid-column: 1;
+    grid-row: 2;
+}
+
+#focusedWeatherIcon{
+    margin-top: 2vh;
+    grid-column: 2;
+    grid-row: 2;
+    height: 10vw;
+    justify-self: center;
+}
+
+#fahrenheit{
+    grid-column: 3;
     grid-row: 2;
 }
 
@@ -125,31 +156,7 @@ html, body{
     font-size: 200%;
 }
 
-.temperatureIcon{
-    cursor: pointer;
-    height: 4vw;
-    align-self: center;
-}
-.activeUnit{
-    pointer-events: none;
-}
 
-#celsius{
-    grid-column: 2;
-    grid-row: 2;
-}
-
-#focusedWeatherIcon{
-    margin-top: 2vh;
-    grid-column: 3;
-    grid-row: 2;
-    height: 10vw;
-}
-
-#fahrenheit{
-    grid-column: 4;
-    grid-row: 2;
-}
 
 /*next hours container*/
 

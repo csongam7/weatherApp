@@ -46,8 +46,7 @@ export function returnIconForFocusedWeather(weather, time, sunset=19){
             return 'assets/wind.png';
         case 'fog':
             return 'assets/fog.png';
-        }
-
+    }
 }
 
 export function changeTemperatureType(changeTo){
@@ -64,11 +63,6 @@ export function changeTemperatureType(changeTo){
         document.querySelector('#fahrenheit').classList.add('activeUnit');
         temperatureUnit = 'fahrenheit';
     }
-}
-
-function clearDisplay(){
-    const containers = document.querySelectorAll('.container');
-    containers.forEach((container) => container.remove());
 }
 
 const form = document.querySelector('#form');
