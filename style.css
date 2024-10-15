@@ -108,12 +108,15 @@ html, body{
 }
 
 #focusedWeatherIcon{
-    animation: levitate 2s infinite ease-in-out;
     margin-top: 2vh;
     grid-column: 2;
     grid-row: 2;
     height: 10vw;
     justify-self: center;
+}
+
+.weatherIcon{
+    animation: levitate 2s infinite ease-in-out;
 }
 
 @keyframes levitate{

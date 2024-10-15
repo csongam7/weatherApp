@@ -63,12 +63,13 @@ export function fillHtmlWithData(weatherData, dayId, temperatureUnit){
             nextHourCard.appendChild(rainPercentage);
             const nextHourTemperature = document.createElement('span');
             nextHourTemperature.className = 'nextHourTemp';
-            nextHourTemperature.classList.add('temp');
-            nextHourTemperature.innerHTML = Math.round(weatherData.days[dayIndex].hours[time].temp);
+            nextHourTemperature.classList.add('temperature');
+            nextHourTemperature.innerHTML = Math.round(weatherData.days[dayIndex].hours[time].temp) + '˚F';
             nextHourCard.appendChild(nextHourTemperature);
             const icon = document.createElement('img');
             icon.src = returnIconForFocusedWeather(weatherData.days[dayIndex].hours[time].icon, time);
-            icon.className = 'nextHoursIcon';
+            icon.classList.add('nextHoursIcon');
+            icon.classList.add('weatherIcon');
             nextHourCard.appendChild(icon);
             cardList.appendChild(nextHourCard);
             time++;
